@@ -1,9 +1,9 @@
 package nl.miwgroningen.cohort3.reinout.vrijProject.voetbalUitslagen.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import javax.persistence.*;
 
 /**
  * @author Reinout Smit <reinoutsmit@live.nl>
@@ -20,28 +20,26 @@ public class Wedstrijd {
     @GeneratedValue
     private int wedstrijdId;
 
-    @Column
-    private Team team1;
-    private Team team2;
-    private int doelpuntenTeam1;
-    private int doelpuntenTeam2;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "teamIdThuis", referencedColumnName = "teamId", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Team teamThuis;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "teamIdUit", referencedColumnName = "teamId", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private Team teamUit;
 
     // constructors
-    public Wedstrijd(int wedstrijdId, Team team1, Team team2, int doelpuntenTeam1, int doelpuntenTeam2) {
+    public Wedstrijd(int wedstrijdId, Team teamThuis, Team teamUit) {
         this.wedstrijdId = wedstrijdId;
-        this.team1 = team1;
-        this.team2 = team2;
-        this.doelpuntenTeam1 = doelpuntenTeam1;
-        this.doelpuntenTeam2 = doelpuntenTeam2;
+        this.teamThuis = teamThuis;
+        this.teamUit = teamUit;
     }
-
-    public Wedstrijd(Team team1, Team team2, int doelpuntenTeam1, int doelpuntenTeam2) {
-        this.team1 = team1;
-        this.team2 = team2;
-        this.doelpuntenTeam1 = doelpuntenTeam1;
-        this.doelpuntenTeam2 = doelpuntenTeam2;
+    public Wedstrijd(Team teamThuis, Team teamUit) {
+        this.teamThuis = teamThuis;
+        this.teamUit = teamUit;
     }
-
     public Wedstrijd() {
     }
 
@@ -49,40 +47,20 @@ public class Wedstrijd {
     public int getWedstrijdId() {
         return wedstrijdId;
     }
-
     public void setWedstrijdId(int wedstrijdId) {
         this.wedstrijdId = wedstrijdId;
     }
-
-    public Team getTeam1() {
-        return team1;
+    public Team getTeamThuis() {
+        return teamThuis;
+    }
+    public void setTeamThuis(Team teamThuis) {
+        this.teamThuis = teamThuis;
+    }
+    public Team getTeamUit() {
+        return teamUit;
+    }
+    public void setTeamUit(Team teamUit) {
+        this.teamUit = teamUit;
     }
 
-    public void setTeam1(Team team1) {
-        this.team1 = team1;
-    }
-
-    public Team getTeam2() {
-        return team2;
-    }
-
-    public void setTeam2(Team team2) {
-        this.team2 = team2;
-    }
-
-    public int getDoelpuntenTeam1() {
-        return doelpuntenTeam1;
-    }
-
-    public void setDoelpuntenTeam1(int doelpuntenTeam1) {
-        this.doelpuntenTeam1 = doelpuntenTeam1;
-    }
-
-    public int getDoelpuntenTeam2() {
-        return doelpuntenTeam2;
-    }
-
-    public void setDoelpuntenTeam2(int doelpuntenTeam2) {
-        this.doelpuntenTeam2 = doelpuntenTeam2;
-    }
 }
