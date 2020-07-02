@@ -19,5 +19,11 @@
     </tr>
 </table>
 
+<h2>Maak een nieuw team</h2>
+    <form action="#" th:action="@{/team/new}" th:object="${team}" method="post">
+        <p>Team name: <input type="text" th:field="*{teamNaam}" /></p>
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    </form>
+
 </body>
 </html>
