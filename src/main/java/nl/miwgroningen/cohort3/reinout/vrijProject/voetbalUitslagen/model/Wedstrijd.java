@@ -1,4 +1,4 @@
-package nl.miwgroningen.cohort3.reinout.vrijProject.voetbalUitslagen.controller;
+package nl.miwgroningen.cohort3.reinout.vrijProject.voetbalUitslagen.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,9 +8,9 @@ import javax.persistence.Id;
 /**
  * @author Reinout Smit <reinoutsmit@live.nl>
  * <p>
- * Dit programma is een uitwerking van opdracht
+ * Wedstrijd controller
  * <p>
- * <Beschrijf wat dit programma doet>
+ * Setup entity en model
  */
 
 @Entity
@@ -26,6 +26,7 @@ public class Wedstrijd {
     private int doelpuntenTeam1;
     private int doelpuntenTeam2;
 
+    // constructors
     public Wedstrijd(int wedstrijdId, Team team1, Team team2, int doelpuntenTeam1, int doelpuntenTeam2) {
         this.wedstrijdId = wedstrijdId;
         this.team1 = team1;
@@ -44,6 +45,7 @@ public class Wedstrijd {
     public Wedstrijd() {
     }
 
+    // getters and setters
     public int getWedstrijdId() {
         return wedstrijdId;
     }

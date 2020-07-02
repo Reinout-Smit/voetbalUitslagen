@@ -1,4 +1,4 @@
-package nl.miwgroningen.cohort3.reinout.vrijProject.voetbalUitslagen.controller;
+package nl.miwgroningen.cohort3.reinout.vrijProject.voetbalUitslagen.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

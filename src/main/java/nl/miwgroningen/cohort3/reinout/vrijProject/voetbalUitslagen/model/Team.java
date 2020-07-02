@@ -1,4 +1,4 @@
-package nl.miwgroningen.cohort3.reinout.vrijProject.voetbalUitslagen.controller;
+package nl.miwgroningen.cohort3.reinout.vrijProject.voetbalUitslagen.model;
 
 /**
  * @author Reinout Smit <reinoutsmit@live.nl>
