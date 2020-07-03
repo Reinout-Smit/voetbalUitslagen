@@ -2,28 +2,47 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
     <title>Team overzicht</title>
-    <link rel="stylesheet" type="text/css" href="voetbaluitslagen.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/voetbaluitslagen.css}"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
+
+<div class="sidenav">
+    <a href="http://localhost:8080/teams">Team Overzicht</a>
+    <a href="#">Uitslagen</a>
+    <a href="#">Wedstrijden</a>
+</div>
+
 <h1>Voetbal teams</h1>
 
 <h2>Een overzicht van de teams in deze divisie</h2>
 
-<table>
+    <div th:if="${message}" class="alert alert-success" role="alert">
+        <p th:text = "${message}">succes message</p>
+    </div>
+
+<table class="table">
     <tr>
         <th>Team naam</th>
     </tr>
     <tr th:each="team: ${allTeams}">
         <td th:text="${team.teamNaam}" />
+        <td><a href="#" th:href="@{/team/delete/} + ${team.teamId}">Delete</a></td>
     </tr>
 </table>
 
 <h2>Maak een nieuw team</h2>
+    <!-- De @ staat voor het gedeelte achter PostMapping het dollarteken staat voor het Model
+    * staat voor een object uit het model-->
+<div class="input_form">
     <form action="#" th:action="@{/team/new}" th:object="${team}" method="post">
-        <p>Team name: <input type="text" th:field="*{teamNaam}" /></p>
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+        <div class="col-sm-5">
+            <input class="form-control" type="text" placeholder="Voer teamnaam in" th:field="*{teamNaam}" />
+            <p><input class="btn btn-primary" type="submit" value="Submit" /> <input class="btn btn-light" type="reset" value="Reset" />
+        </div>
     </form>
+</div>
 
 </body>
 </html>

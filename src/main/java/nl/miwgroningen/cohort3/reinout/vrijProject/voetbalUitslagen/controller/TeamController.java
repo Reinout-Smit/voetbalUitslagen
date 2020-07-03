@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 /**
  * @author Reinout Smit <reinoutsmit@live.nl>
@@ -41,11 +42,19 @@ public class TeamController {
     protected String saveOrUpdateTeam(@ModelAttribute("team") Team team, BindingResult bindingResult) {
         // ALS er errors zijn ga dan terug naar het teamOverview.
         if (bindingResult.hasErrors()) {
+            bindingResult.reject("Er ging iets mis met je invoer");
             return "teamOverview";
             // ANDERS sla de gegevens van de gebruiker op in een Team model en stuur naar de db
         } else {
             teamRepository.save(team);
             return "redirect:/teams";
         }
+    }
+
+    @RequestMapping("/team/delete/{teamId}")
+    protected String deleteTeam(@PathVariable Integer teamId, RedirectAttributes redirectAttributes){
+        teamRepository.deleteById(teamId);
+        redirectAttributes.addFlashAttribute("message", "Team is verwijderd!");
+        return "redirect:/teams";
     }
 }
