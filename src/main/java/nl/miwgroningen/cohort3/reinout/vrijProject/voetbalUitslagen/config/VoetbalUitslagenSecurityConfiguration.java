@@ -30,7 +30,9 @@ public class VoetbalUitslagenSecurityConfiguration extends WebSecurityConfigurer
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
-                .withUser("admin").password(passwordEncoder().encode("admin")).roles("USER", "ADMIN");
+                .withUser("admin").password(passwordEncoder().encode("admin")).roles("ADMIN")
+                .and()
+                .withUser("user").password(passwordEncoder().encode("user")).roles("USER");
         auth.authenticationProvider(authProvider());
     }
 
