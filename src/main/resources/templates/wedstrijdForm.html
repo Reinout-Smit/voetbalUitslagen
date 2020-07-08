@@ -6,13 +6,14 @@
     <link rel="stylesheet" th:href="@{/voetbaluitslagen.css}"/>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
-<body>
 
 <header>
 
-    <div th:replace="header :: header"></div>
+    <div th:replace="/fragments/header :: header"></div>
 
 </header>
+
+<body>
 
 <h1>Wedstrijden</h1>
 
@@ -20,7 +21,7 @@
 
 <table class="table">
     <tr>
-        <th>Wedstrijd overzicht</th>
+        <th>Wedstrijd overzicht</th><th>Uitslag</th>
     </tr>
     <tr th:each="wedstrijd : ${allWedstrijden}">
         <td th:text="${wedstrijd.teamThuis} + '-' + ${wedstrijd.teamUit}" />
@@ -35,27 +36,49 @@
 <h2>Maak een nieuwe wedstrijd</h2>
 <!-- De @ staat voor het gedeelte achter PostMapping het dollarteken staat voor het Model
 * staat voor een object uit het model-->
-        <div class="col-sm-5">
+
             <label>Kies een thuisteam</label>
             <form action="#" th:action="@{/wedstrijd/new}" th:object="${wedstrijd}" method="post">
-                <select th:field="*{teamThuis}" class="form-control mb-2">
-                        <option value="">Niets geselecteerd</option>
-                        <option th:each="naamOpt : ${T(nl.miwgroningen.cohort3.reinout.vrijProject.voetbalUitslagen.Enums.Teams).values()}"
-                                th:value="${naamOpt.displayValue}"
-                                th:text="${naamOpt.displayValue}">
-                        </option>
-                </select>
-            <label>Kies een uitteam</label>
-                <select th:field="*{teamUit}" class="form-control mb-2">
-                    <option value="">Niets geselecteerd</option>
-                    <option th:each="naamOpt : ${T(nl.miwgroningen.cohort3.reinout.vrijProject.voetbalUitslagen.Enums.Teams).values()}"
-                            th:value="${naamOpt.displayValue}"
-                            th:text="${naamOpt.displayValue}">
-                    </option>
-                    <p><input class="btn btn-primary" type="submit" value="Submit" /> <input class="btn btn-light" type="reset" value="Reset" />
-                </select>
+                <table class="table">
+                    <tr>
+                        <td>
+                            <select th:field="*{teamThuis}" class="form-control mb-2">
+                                <option value="">Niets geselecteerd</option>
+                                <option th:each="naamOpt : ${T(nl.miwgroningen.cohort3.reinout.vrijProject.voetbalUitslagen.Enums.Teams).values()}"
+                                        th:value="${naamOpt.displayValue}"
+                                        th:text="${naamOpt.displayValue}">
+                                </option>
+                            </select>
+                        </td>
+                        <td>
+                            <div class="col-2">
+                                <input class="form-control" type="text" placeholder="0" th:field="*{doelpuntenTeamThuis}" />
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+                <label>Kies een uitteam</label>
+                <table class="table">
+                    <tr>
+                        <td>
+                            <select th:field="*{teamUit}" class="form-control mb-2">
+                                <option value="">Niets geselecteerd</option>
+                                <option th:each="naamOpt : ${T(nl.miwgroningen.cohort3.reinout.vrijProject.voetbalUitslagen.Enums.Teams).values()}"
+                                        th:value="${naamOpt.displayValue}"
+                                        th:text="${naamOpt.displayValue}">
+                                </option>
+                            </select>
+                        </td>
+                        <td>
+                            <div class="col-2">
+                                <input class="form-control" type="text" placeholder="Doelpunten" th:field="*{doelpuntenTeamUit}" />
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <p><input class="btn btn-primary" type="submit" value="Submit" /> <input class="btn btn-light" type="reset" value="Reset" />
             </form>
-        </div>
 
 </body>
 </html>

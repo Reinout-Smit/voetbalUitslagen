@@ -47,6 +47,19 @@ public class Wedstrijd {
     public Wedstrijd() {
     }
 
+    // Functional methods
+    public String getTeamPunten(Wedstrijd wedstrijd){
+        if(wedstrijd.doelpuntenTeamThuis > wedstrijd.doelpuntenTeamUit){
+            return wedstrijd.teamThuis;
+        }
+        else if(wedstrijd.doelpuntenTeamThuis < wedstrijd.doelpuntenTeamUit){
+            return wedstrijd.teamUit;
+        }
+        else {
+            return null;
+        }
+    }
+
     // getters and setters
     public int getWedstrijdId() {
         return wedstrijdId;

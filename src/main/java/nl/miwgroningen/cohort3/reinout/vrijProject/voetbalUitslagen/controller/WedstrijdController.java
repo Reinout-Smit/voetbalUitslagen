@@ -26,6 +26,9 @@ public class WedstrijdController {
     @Autowired
     WedstrijdRepository wedstrijdRepository;
 
+    @Autowired
+    TeamRepository teamRepository;
+
     @GetMapping("/wedstrijden")
     protected String showAllWedstrijden(Model model){
         // allTeams kan gebruikt worden in een thymeleaf statement in HTML. Als allTeams wordt aangeroepen voer dan
@@ -47,6 +50,8 @@ public class WedstrijdController {
             return "wedstrijdForm";
             // ANDERS sla de gegevens van de gebruiker op in een Wedstrijd model en stuur naar de db
         } else {
+            String teamWinst = wedstrijd.getTeamPunten(wedstrijd);
+            teamRepository.updatePuntenByTeamNaam(teamRepository.getPuntenByTeam(teamWinst) + 3, teamWinst);
             wedstrijdRepository.save(wedstrijd);
             return "redirect:/wedstrijden";
         }

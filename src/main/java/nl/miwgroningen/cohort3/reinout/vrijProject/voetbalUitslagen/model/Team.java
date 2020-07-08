@@ -19,14 +19,19 @@ public class Team {
 
     @Column
     private String teamNaam;
+    private int aantalPunten;
 
     // Constructors
-    public Team(int teamId, String teamNaam) {
+    public Team(int teamId, String teamNaam, int aantalPunten) {
         this.teamId = teamId;
         this.teamNaam = teamNaam;
+        this.aantalPunten = aantalPunten;
     }
     public Team(String teamNaam) {
         this.teamNaam = teamNaam;
+    }
+    public Team(int aantalPunten) {
+        this.aantalPunten = aantalPunten;
     }
     public Team() {
     }
@@ -44,5 +49,10 @@ public class Team {
     public void setTeamNaam(String teamNaam) {
         this.teamNaam = teamNaam;
     }
-
+    public int getAantalPunten() {
+        return aantalPunten;
+    }
+    public void setAantalPunten(int aantalPunten) {
+        this.aantalPunten = aantalPunten;
+    }
 }
