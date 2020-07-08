@@ -2,6 +2,7 @@ package nl.miwgroningen.cohort3.reinout.vrijProject.voetbalUitslagen.controller;
 
 import nl.miwgroningen.cohort3.reinout.vrijProject.voetbalUitslagen.model.Team;
 import nl.miwgroningen.cohort3.reinout.vrijProject.voetbalUitslagen.model.Wedstrijd;
+import nl.miwgroningen.cohort3.reinout.vrijProject.voetbalUitslagen.repository.TeamRepository;
 import nl.miwgroningen.cohort3.reinout.vrijProject.voetbalUitslagen.repository.WedstrijdRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,7 +45,7 @@ public class WedstrijdController {
         if (bindingResult.hasErrors()) {
             bindingResult.reject("Er ging iets mis met je invoer");
             return "wedstrijdForm";
-            // ANDERS sla de gegevens van de gebruiker op in een Team model en stuur naar de db
+            // ANDERS sla de gegevens van de gebruiker op in een Wedstrijd model en stuur naar de db
         } else {
             wedstrijdRepository.save(wedstrijd);
             return "redirect:/wedstrijden";
