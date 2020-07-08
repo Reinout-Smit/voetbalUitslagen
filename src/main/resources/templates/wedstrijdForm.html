@@ -22,18 +22,19 @@
     <tr>
         <th>Wedstrijd overzicht</th>
     </tr>
-    <tr th:each="wedstrijd: ${allWedstrijden}">
+    <tr th:each="wedstrijd : ${allWedstrijden}">
         <td th:text="${wedstrijd.teamThuis} + '-' + ${wedstrijd.teamUit}" />
-<!--        <div sec:authorize="hasRole('ROLE_ADMIN')">-->
-<!--            <td><a href="#" th:href="@{/team/delete/} + ${team.teamId}">Delete</a></td>-->
-<!--        </div>-->
+        <td th:text="${wedstrijd.doelpuntenTeamThuis} + '-' + ${wedstrijd.doelpuntenTeamUit}" />
+        <div sec:authorize="hasRole('ROLE_ADMIN')">
+            <td><a href="#" th:href="@{/wedstrijd/delete/} + ${wedstrijd.wedstrijdId}">Delete</a></td>
+        </div>
     </tr>
+
 </table>
 
 <h2>Maak een nieuwe wedstrijd</h2>
 <!-- De @ staat voor het gedeelte achter PostMapping het dollarteken staat voor het Model
 * staat voor een object uit het model-->
-<!--    <form action="#" th:action="@{/wedstrijd/new}" th:object="${wedstrijd}" method="post">-->
         <div class="col-sm-5">
             <label>Kies een thuisteam</label>
             <form action="#" th:action="@{/wedstrijd/new}" th:object="${wedstrijd}" method="post">
@@ -55,7 +56,6 @@
                 </select>
             </form>
         </div>
-<!--</div>-->
 
 </body>
 </html>

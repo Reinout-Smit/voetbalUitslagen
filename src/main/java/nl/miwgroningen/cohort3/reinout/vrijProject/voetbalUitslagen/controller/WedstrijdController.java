@@ -5,12 +5,12 @@ import nl.miwgroningen.cohort3.reinout.vrijProject.voetbalUitslagen.model.Wedstr
 import nl.miwgroningen.cohort3.reinout.vrijProject.voetbalUitslagen.repository.TeamRepository;
 import nl.miwgroningen.cohort3.reinout.vrijProject.voetbalUitslagen.repository.WedstrijdRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * @author Reinout Smit <reinoutsmit@live.nl>
@@ -40,7 +40,7 @@ public class WedstrijdController {
        controleren of er geen foutmeldingen zijn tijdens het verkrijgen van de data van de gebruiker.
      */
     @PostMapping("/wedstrijd/new")
-    protected String saveOrUpdateTeam(@ModelAttribute("wedstrijd") Wedstrijd wedstrijd, BindingResult bindingResult) {
+    protected String saveOrUpdateWedstrijd(@ModelAttribute("wedstrijd") Wedstrijd wedstrijd, BindingResult bindingResult) {
         // ALS er errors zijn ga dan terug naar het teamOverview.
         if (bindingResult.hasErrors()) {
             bindingResult.reject("Er ging iets mis met je invoer");
@@ -50,5 +50,14 @@ public class WedstrijdController {
             wedstrijdRepository.save(wedstrijd);
             return "redirect:/wedstrijden";
         }
+    }
+
+    @RequestMapping("/wedstrijd/delete/{wedstrijdId}")
+    // @Secured zorgt ervoor dat alleen de admin bevoegdheden heeft om een wedstrijd te verwijderen.
+    @Secured("ROLE_ADMIN")
+    protected String deleteWedstrijd(@PathVariable Integer wedstrijdId, RedirectAttributes redirectAttributes){
+        wedstrijdRepository.deleteById(wedstrijdId);
+        redirectAttributes.addFlashAttribute("message", "Wedstrijd is verwijderd!");
+        return "redirect:/wedstrijden";
     }
 }
